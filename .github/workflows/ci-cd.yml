@@ -14,26 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Use actions/setup-node to install the specific Node.js version
       - name: Set up Node.js environment
         uses: actions/setup-node@v4
         with:
-          node-version: '16' # Specify the Node.js version you need
-
-      - name: Install dependencies
-        run: npm install --frozen-lockfile
-
-      - name: Build the application
-        run: npm run build
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Log in to JFrog Docker registry
-        run: echo "${{ secrets.JFROG_PASSWORD }}" | docker login ${{ secrets.JFROG_URL }} -u ${{ secrets.JFROG_USER }} --password-stdin
-
-      - name: Build the Docker image
-        run: docker build -t ${{ secrets.JFROG_URL }}/docker-repo/my-node-builder:latest .
-
-      - name: Push the Docker image to JFrog Artifactory
-        run: docker push ${{ secrets.JFROG_URL }}/docker-repo/my-node-builder:latest
+          node-version: '18.x'
